@@ -1,0 +1,43 @@
+<?xml version="1.0" ?>
+<!DOCTYPE Menu
+  PUBLIC '-//freedesktop//DTD Menu 1.0//EN'
+  'http://standards.freedesktop.org/menu-spec/menu-1.0.dtd'>
+<Menu>
+	<Name>Applications</Name>
+	<MergeFile type="parent">/etc/xdg/menus/gnome-applications.menu</MergeFile>
+	<Menu>
+		<Name>Development</Name>
+		<Include>
+			<Filename>alacarte-made.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>alacarte-made-2.desktop</Filename>
+		</Include>
+		<Include>
+			<Filename>alacarte-made-3.desktop</Filename>
+		</Include>
+		<Layout>
+			<Merge type="menus"/>
+			<Filename>org.gnome.Boxes.desktop</Filename>
+			<Filename>code.desktop</Filename>
+			<Filename>code-url-handler.desktop</Filename>
+			<Filename>alacarte-made.desktop</Filename>
+			<Filename>docker-desktop.desktop</Filename>
+			<Filename>emacs.desktop</Filename>
+			<Filename>gtk3-demo.desktop</Filename>
+			<Filename>gtk3-icon-browser.desktop</Filename>
+			<Filename>gtk3-widget-factory.desktop</Filename>
+			<Merge type="files"/>
+		</Layout>
+	</Menu>
+	<Menu>
+		<Name>Education</Name>
+		<Include>
+			<Filename>alacarte-made-1.desktop</Filename>
+		</Include>
+		<Layout>
+			<Merge type="menus"/>
+			<Merge type="files"/>
+		</Layout>
+	</Menu>
+</Menu>

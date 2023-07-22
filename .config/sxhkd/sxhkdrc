@@ -1,20 +1,32 @@
 
-
-
 super + Return
-		wezterm
+		kitty
 
-alt + d
+alt + f
 		bash ./.config/rofi/scripts/launcher_t7
 
-super + s
-		flameshot gui
+alt + l
+		bash ./.config/scripts/lang.sh
+
+alt + d
+		bash ./.config/rofi/scripts/launcher_t3
 
 alt + s
+		flameshot gui
+
+alt + b
 		brave-browser
 
 alt + e
 		rofimoji
+
+# focus window direction
+super + {_, shift + }{h, j, k, l}
+	bspc node -{f,s} {west, south, north, east}
+
+# alt-tab like navigation
+super + {grave,Tab}
+	bspc {node,desktop} -f last
 
 # quit/restart bspwm
 super + alt + {q,r}

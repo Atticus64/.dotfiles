@@ -5,12 +5,35 @@ super + Return
 alt + f
 		bash ./.config/rofi/scripts/launcher_t7
 
+# keys es and us
 alt + l
 		bash ./.config/scripts/lang.sh
 
+# launcher app
 alt + d
 		bash ./.config/rofi/scripts/launcher_t3
 
+# brightness
+ctrl + alt + o
+		brightnessctl s 10%-
+
+ctrl + alt + p
+		brightnessctl s 10%+
+
+# volume
+ctrl + alt + u
+		pactl set-sink-volume 0 -15%
+
+ctrl + alt + i
+		pactl set-sink-volume 0 +15%
+
+super + alt + m
+		pactl set-sink-volume 0 0%
+
+super + alt + n
+		pactl set-sink-volume 0 100%
+
+# screenshot
 alt + s
 		flameshot gui
 

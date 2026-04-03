@@ -1,6 +1,6 @@
 # Coffee Dev Dotfiles
 
-by Jona 
+by Jona 🦎 
 
 ## Tools
 

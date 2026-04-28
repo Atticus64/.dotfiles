@@ -1,6 +1,8 @@
 # Coffee Dev Dotfiles
 
-by Jona 🦎 
+by Jona 🦎
+
+[📖 Documentación](./DOCS.md)
 
 ## Tools
 

@@ -1,0 +1,116 @@
+* {
+    font: "JetBrainsMono Nerd Font 16";
+    background: #eff1f5;
+    foreground: #4c4f69;
+    lightbg: #e6e9ef;
+    lightfg: #9ca0b0;
+    separatorcolor: #e6e9ef;
+    red: #d20f39;
+    blue: #1e66f5;
+    selected-normal-background: #ccd0da;
+    selected-normal-foreground: #4c4f69;
+    normal-background: transparent;
+    normal-foreground: #4c4f69;
+    urgent-background: transparent;
+    urgent-foreground: #d20f39;
+    active-background: transparent;
+    active-foreground: #7287fd;
+    alternate-normal-background: transparent;
+    alternate-normal-foreground: #4c4f69;
+    alternate-urgent-background: transparent;
+    alternate-urgent-foreground: #d20f39;
+    alternate-active-background: transparent;
+    alternate-active-foreground: #7287fd;
+    selected-urgent-background: #d20f39;
+    selected-urgent-foreground: #eff1f5;
+    selected-active-background: #7287fd;
+    selected-active-foreground: #eff1f5;
+    alternate-selected-normal-background: #ccd0da;
+    alternate-selected-normal-foreground: #4c4f69;
+}
+
+window {
+    padding: 12px;
+    background-color: var(background);
+    border: 2px;
+    border-color: #dce0e8;
+    border-radius: 16px;
+    width: 900px;
+}
+
+mainbox {
+    padding: 0;
+    border: 0;
+}
+
+inputbar {
+    padding: 10px 16px;
+    spacing: 12px;
+    border-radius: 12px;
+    background-color: var(lightbg);
+    children: [prompt, entry];
+}
+
+prompt {
+    padding: 6px 14px;
+    border-radius: 8px;
+    background-color: var(active-foreground);
+    text-color: var(background);
+}
+
+entry {
+    cursor: text;
+    placeholder-color: var(lightfg);
+    placeholder: "Buscar...";
+}
+
+listview {
+    padding: 8px 0 0 0;
+    spacing: 4px;
+    fixed-height: false;
+    scrollbar: true;
+}
+
+element {
+    padding: 12px 16px;
+    border: 0;
+    spacing: 8px;
+    cursor: pointer;
+}
+
+element normal.normal {
+    background-color: var(normal-background);
+    text-color: var(normal-foreground);
+}
+
+element selected.normal {
+    background-color: var(selected-normal-background);
+    text-color: var(selected-normal-foreground);
+    border-radius: 10px;
+}
+
+element alternate.normal {
+    background-color: var(alternate-normal-background);
+    text-color: var(alternate-normal-foreground);
+}
+
+element-text {
+    background-color: transparent;
+    cursor: inherit;
+    text-color: inherit;
+    highlight: inherit;
+}
+
+element-icon {
+    background-color: transparent;
+    cursor: inherit;
+    text-color: inherit;
+    size: 1em;
+}
+
+scrollbar {
+    width: 6px;
+    border: 0;
+    handle-width: 6px;
+    handle-color: var(selected-normal-background);
+}

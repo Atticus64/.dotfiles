@@ -222,11 +222,12 @@ rofi_prompt() {
     local prompt="$1"
     local -n _display="$2"
     local -n _values="$3"
+    local matching="${4:-normal}"
     local out
     if [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
-        out=$(printf '%s\n' "${_display[@]}" | WAYLAND_DISPLAY= rofi -dmenu -p "$prompt" -i -theme "$ROFI_THEME")
+        out=$(printf '%s\n' "${_display[@]}" | WAYLAND_DISPLAY= rofi -dmenu -p "$prompt" -i -matching "$matching" -theme "$ROFI_THEME")
     else
-        out=$(printf '%s\n' "${_display[@]}" | rofi -dmenu -p "$prompt" -i -theme "$ROFI_THEME")
+        out=$(printf '%s\n' "${_display[@]}" | rofi -dmenu -p "$prompt" -i -matching "$matching" -theme "$ROFI_THEME")
     fi
     [ -z "$out" ] && echo "" && return
     local idx=0
@@ -255,6 +256,7 @@ choose_category() {
     while true; do
         local -a display=()
         local -a values=()
+        display+=("󰢷  Search all    Fuzzy search every project"); values+=("search_all")
         display+=("󰚰  experiments    Prototypes & experiments"); values+=("experiments")
         display+=("󰌠  langs         Learning / practice by language"); values+=("langs")
         display+=("󰡭  polyglot      Same program in multiple languages"); values+=("polyglot")
@@ -380,6 +382,50 @@ choose_editor() {
 }
 
 # ---------------------------------------------------------------------------
+# Level 2 – Search all (fuzzy across every category)
+# ---------------------------------------------------------------------------
+
+search_all_projects() {
+    local -a display=()
+    local -a values=()
+
+    # Categories with flat project listing
+    for cat in experiments polyglot projects university; do
+        local cat_dir="$BASE/$cat"
+        [ -d "$cat_dir" ] || continue
+        while IFS='|' read -r lang name rel path; do
+            [ -z "$path" ] && continue
+            display+=("$cat  │  $name  ($lang)")
+            values+=("$path")
+        done < <(find_projects_in_category "$cat_dir" | sort -t'|' -k1,1 -k2,2)
+    done
+
+    # langs category has an extra level (language subdirectories)
+    for lang_dir in "$BASE/langs/"*/; do
+        [ -d "$lang_dir" ] || continue
+        local lang_name
+        lang_name=$(basename "$lang_dir")
+        while IFS='|' read -r name rel path; do
+            [ -z "$path" ] && continue
+            display+=("langs/$lang_name  │  $name")
+            values+=("$path")
+        done < <(find_projects_in_lang "$lang_dir" | sort -t'|' -k2,2)
+    done
+
+    if [ ${#display[@]} -eq 0 ]; then
+        echo "No se encontraron proyectos"
+        exit 1
+    fi
+
+    while true; do
+        local sel
+        sel=$(rofi_prompt "Buscar" display values "fuzzy")
+        [ -n "$sel" ] && echo "$sel" && return
+        confirm_cancel
+    done
+}
+
+# ---------------------------------------------------------------------------
 # Main
 # ---------------------------------------------------------------------------
 
@@ -394,6 +440,11 @@ main() {
         [ -z "$lang_dir" ] && exit 0
         local proj_path
         proj_path=$(choose_project_in_lang "$lang_dir")
+        [ -z "$proj_path" ] && exit 0
+        choose_editor "$proj_path"
+    elif [ "$category" = "search_all" ]; then
+        local proj_path
+        proj_path=$(search_all_projects)
         [ -z "$proj_path" ] && exit 0
         choose_editor "$proj_path"
     else
